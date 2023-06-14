@@ -32,6 +32,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
       BUCKET_S3: ${{ vars.BUCKET_S3 }}
+      AWS_EC2_METADATA_DISABLED: true
     steps:
     - uses: actions/download-artifact@v3
       with:
