@@ -4,40 +4,27 @@ on:
   push:
     branches: [ main ]
 
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+  MODULE_NAME: ${{ vars.MODULE_NAME }}
+  TAG: latest
+  STACK_NAME: "64bit Amazon Linux 2 v3.5.7 running Docker"
+  
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: setup node
-      uses: actions/setup-node@v3
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v3
       with:
         node-version: '16'
         cache: 'npm'
-    - name: frontend install
-      run: npm --prefix frontend install
-    - name: frontend build
-      run: npm --prefix frontend run build
-    - name: upload frontend build
-      uses: actions/upload-artifact@v3
-      with:
-        name: build
-        path: frontend/.next/server/app
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-      BUCKET_S3: ${{ vars.BUCKET_S3 }}
-      AWS_EC2_METADATA_DISABLED: true
-    steps:
-    - uses: actions/download-artifact@v3
-      with:
-        name: build
-        path: frontend/.next/server/app
-    - run: aws s3 cp frontend/.next/server/app s3://$BUCKET_S3 --recursive --acl public-read
-    
-    
+    - run: docker build -t $PROJECT_NAME/$MODULE_NAME $MODULE_NAME/.
+    - run: docker tag $PROJECT_NAME/$MODULE_NAME:$TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$PROJECT_NAME/$MODULE_NAME:$TAG
+    - run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+    - run: docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$PROJECT_NAME/$MODULE_NAM E:$TAG
