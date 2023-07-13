@@ -1,10 +1,9 @@
 name: conchayoro-pipeline-ecr-ebs
 
 on:
-  workflow_dispatch:
-  
-#   push:
-#     branches: [ main ]
+#   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -20,13 +19,20 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MODULE_FULLNAME: $PROJECT_NAME/$MODULE_NAME
+      REGISTRY_URL: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v3
       with:
         node-version: '16'
         cache: 'npm'
-    - run: docker build -t $PROJECT_NAME/$MODULE_NAME $MODULE_NAME/.
-    - run: docker tag $PROJECT_NAME/$MODULE_NAME:$TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$PROJECT_NAME/$MODULE_NAME:$TAG
-    - run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-    - run: docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$PROJECT_NAME/$MODULE_NAME:$TAG
+#     - run: docker build -t $PROJECT_NAME/$MODULE_NAME $MODULE_NAME/.    
+#     - run: docker tag $PROJECT_NAME/$MODULE_NAME:$TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$PROJECT_NAME/$MODULE_NAME:$TAG
+#     - run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+#     - run: docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$PROJECT_NAME/$MODULE_NAME:$TAG
+    - run: docker build -t $MODULE_FULLNAME $MODULE_NAME/ . 
+    - run: docker tag $MODULE_FULLNAME:$TAG $REGISTRY_URL/$MODULE_FULLNAME:$TAG
+    - run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $REGISTRY_URL
+    - run: docker push $REGISTRY_URL/$MODULE_FULLNAME:$TAG
