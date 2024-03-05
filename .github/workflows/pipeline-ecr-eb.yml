@@ -12,8 +12,8 @@ env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   PROJECT_NAME: ${{ vars.PROJECT_NAME }}
   MODULE_NAME: ${{ vars.MODULE_NAME }}
-  TAG: latest
-  STACK_NAME: "64bit Amazon Linux 2 v3.5.7 running Docker"
+  TAG: ${{ vars.TAGS }}
+  STACK_NAME: ${{ vars.STACK_NAME }}
   
 jobs:
   build:
