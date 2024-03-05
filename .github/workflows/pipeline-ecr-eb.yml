@@ -12,7 +12,7 @@ env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   PROJECT_NAME: ${{ vars.PROJECT_NAME }}
   MODULE_NAME: ${{ vars.MODULE_NAME }}
-  TAG: ${{ vars.TAGS }}
+  TAG: ${{ vars.TAG }}
   STACK_NAME: ${{ vars.STACK_NAME }}
   
 jobs:
