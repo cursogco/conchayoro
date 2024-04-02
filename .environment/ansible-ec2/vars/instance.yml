@@ -1,0 +1,6 @@
+---
+instance_name: '{{ project_name }}-ec2'
+instance_type: t2.micro
+image_id: ami-0c101f26f147fa7fd
+user_data_file: ec2-user-data.sh
+iam_role: LabInstanceProfile
