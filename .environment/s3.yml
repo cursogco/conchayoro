@@ -8,6 +8,7 @@
         name: devops-cyo
         state: present
         acl: public-read
+        object_ownership: BucketOwnerEnforced
 
     - name: copy files
       community.aws.s3_sync:
