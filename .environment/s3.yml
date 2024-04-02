@@ -11,5 +11,5 @@
     - name: copy files
       community.aws.s3_sync:
         bucket: devops-cyo
-        file_root: frontend/out
+        file_root: out
         permission: public-read
