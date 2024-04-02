@@ -30,10 +30,10 @@ jobs:
           python-version: '3.10'
       - name: setup Python virtualenv and install packages
         run: |
-          python3 -m venv py3
-          source py3/bin/activate
-          python -m pip install --upgrade pip
-          pip install boto3 botocore ansible==2.15
+          # python3 -m venv py3
+          # source py3/bin/activate
+          # python -m pip install --upgrade pip
+          # pip install boto3 botocore ansible=2.10
           echo "ANSIBLE_PYTHON_INTERPRETER=$VIRTUAL_ENV/bin/python3" >> $GITHUB_ENV
           echo "ENVIRONMENT_SETUP=true" >> $GITHUB_ENV
       - uses: actions/download-artifact@v3
@@ -42,5 +42,5 @@ jobs:
           path: .environment/out
       - name: files upload
         run: |
-          source py3/bin/activate
+          # source py3/bin/activate
           ansible-playbook -vvvv .environment/s3.yml
