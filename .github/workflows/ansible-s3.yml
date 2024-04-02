@@ -33,7 +33,7 @@ jobs:
           python3 -m venv py3
           source py3/bin/activate
           python -m pip install --upgrade pip
-          pip install boto3 botocore ansible==2.16
+          pip install boto3 botocore ansible==2.15
           echo "ANSIBLE_PYTHON_INTERPRETER=$VIRTUAL_ENV/bin/python3" >> $GITHUB_ENV
           echo "ENVIRONMENT_SETUP=true" >> $GITHUB_ENV
       - uses: actions/download-artifact@v3
