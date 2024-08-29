@@ -1,5 +1,9 @@
 FROM nginx:alpine
 
-COPY index.html /usr/share/nginx/html
+RUN npm --prefix frontend run build
+
+RUN npm --prefix frontend install
+
+COPY frontend/.next/server/app /usr/share/nginx/html
 
 EXPOSE 80
