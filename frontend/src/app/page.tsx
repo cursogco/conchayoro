@@ -9,3 +9,4 @@ export default async function Page() {
         black_friday ? <button> Promo </button> : <button> Normal </button>
       </div>
   )
+};
