@@ -7,7 +7,7 @@ export default async function Page() {
     <html>
       <body>
         <div>
-          <h1> Welcome to the ConchaYOro App - deploy v3a</h1>
+          <h1> Welcome to the ConchaYOro App - deploy v3b</h1>
           { black_friday ? <button> Promo </button> : <button> Normal </button> } 
         </div>
       </body>
