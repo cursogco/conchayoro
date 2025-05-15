@@ -27,7 +27,7 @@ jobs:
       TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
       TF_VAR_SOLUTION_STACK_NAME: ${{ vars.STACK_NAME }}
       TF_VAR_WORKING_DIR: ".environment/"
-    steps:
+    steps:    
     - uses: actions/checkout@v4
     - uses: hashicorp/setup-terraform@v3
     - uses: actions/download-artifact@v4
@@ -39,11 +39,13 @@ jobs:
     - run: ls -la $TF_VAR_WORKING_DIR
     - run: terraform -chdir=$TF_VAR_WORKING_DIR init
     - run: terraform -chdir=$TF_VAR_WORKING_DIR plan -input=false -out=plan
-    - run: terraform -chdir=$TF_VAR_WORKING_DIR apply -auto-approve
+    - run: terraform -chdir=$TF_VAR_WORKING_DIR apply -auto-approve $TF_VAR_WORKING_DIR/terraform.tfstate
+    - run: ls -la
+    - run: ls -la $TF_VAR_WORKING_DIR
     - uses: actions/upload-artifact@v4
       with:
         name: tfstate
-        path: .
+        path: $TF_VAR_WORKING_DIR/terraform.tfstate
         
   build:
     runs-on: ubuntu-latest    
@@ -91,7 +93,7 @@ jobs:
             sudo python3 ./get-pip.py
             sudo pip install "pyyaml<5.4"
             sudo pip install --upgrade setuptools
-            sudo pip install --upgrade pip awsebcli            
+            sudo pip install --upgrade awsebcli                  
       - run: |           
            eb deploy --verbose
         
