@@ -27,7 +27,8 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: tfstate
-        path: terraform.tfstate
+        path: .environment/terraform.tfstate
+        if-no-files-found: info 
     - run: export TF_VAR_PROJECT_NAME=${PROJECT_NAME}
     - run: export TF_VAR_MODULE_NAME=${MODULE_NAME}
     - run: export TF_VAR_AWS_REGION=${AWS_REGION}
@@ -38,7 +39,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: tfstate
-        path: terraform.tfstate
+        path: .environment/terraform.tfstate
     
   build:
     runs-on: ubuntu-latest    
