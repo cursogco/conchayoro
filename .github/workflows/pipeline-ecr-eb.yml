@@ -97,11 +97,11 @@ jobs:
       #       sudo pip install "pyyaml<5.4"
       #       sudo pip install --upgrade setuptools
       #       sudo pip install --upgrade awsebcli                  
-      - name: 'Install pip and awsebcli'
-        run: |
-            sudo pip install "pyyaml<5.4"
-            sudo pip install --upgrade setuptools
-            sudo pip install --upgrade awsebcli                              
+      # - name: 'Install pip and awsebcli'
+      #   run: |
+      #       sudo pip install "pyyaml<5.4"
+      #       sudo pip install --upgrade setuptools
+      #       sudo pip install --upgrade awsebcli                              
       - run: |           
            eb deploy --verbose
         
