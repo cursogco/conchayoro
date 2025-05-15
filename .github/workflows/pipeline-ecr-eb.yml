@@ -26,21 +26,24 @@ jobs:
       TF_VAR_MODULE_NAME: ${{ vars.MODULE_NAME }}
       TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
       TF_VAR_SOLUTION_STACK_NAME: ${{ vars.STACK_NAME }}
+      TF_VAR_WORKING_DIR: ".environment/"
     steps:
     - uses: actions/checkout@v4
     - uses: hashicorp/setup-terraform@v3
     - uses: actions/download-artifact@v4
       with:
         name: tfstate
-        path: .environment/terraform.tfstate
-      continue-on-error: true 
-    - run: terraform -chdir='.environment' init
-    - run: terraform -chdir='.environment' plan -input=false -out=plan
-    - run: terraform -chdir='.environment' apply -auto-approve
+        path: $TF_VAR_WORKING_DIR/terraform.tfstate
+      continue-on-error: true
+    - run: ls -la
+    - run: ls -la .envi
+    - run: terraform -chdir=$TF_VAR_WORKING_DIR init
+    - run: terraform -chdir=$TF_VAR_WORKING_DIR plan -input=false -out=plan
+    - run: terraform -chdir=$TF_VAR_WORKING_DIR apply -auto-approve
     - uses: actions/upload-artifact@v4
       with:
         name: tfstate
-        path: .environment/terraform.tfstate
+        path: .
         
   build:
     runs-on: ubuntu-latest    
