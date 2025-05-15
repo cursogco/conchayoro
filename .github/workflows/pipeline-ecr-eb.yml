@@ -49,8 +49,7 @@ jobs:
       with:
         name: tfstate
         path: $TF_VAR_WORKING_DIR/terraform.tfstate
-        
-        
+                
   build:
     runs-on: ubuntu-latest    
     needs: provisioning
