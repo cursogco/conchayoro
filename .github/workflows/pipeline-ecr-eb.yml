@@ -28,7 +28,7 @@ jobs:
       with:
         name: tfstate
         path: .environment/terraform.tfstate
-        if-no-files-found: info 
+        continue-on-error: true 
     - run: export TF_VAR_PROJECT_NAME=${PROJECT_NAME}
     - run: export TF_VAR_MODULE_NAME=${MODULE_NAME}
     - run: export TF_VAR_AWS_REGION=${AWS_REGION}
