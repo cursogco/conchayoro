@@ -23,12 +23,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - run: terraform -chdir=.environment/ init
-    - run: terraform -chdir=.environment/ plan 
-    - run: terraform -chdir=.environment/ apply
+    - run: export TF_VAR_PROJECT_NAME=${PROJECT_NAME}
+    - run: export TF_VAR_MODULE_NAME=${MODULE_NAME}
+    - run: export TF_VAR_AWS_REGION=${AWS_REGION}
+    - run: export TF_VAR_SOLUTION_STACK_NAME=${STACK_NAME}
+    - run: terraform -chdir='.environment' init
+    - run: terraform -chdir='.environment' plan -input=false -out=plan
+    - run: terraform -chdir='.environment' apply -auto-approve
     
   build:
     runs-on: ubuntu-latest    
+    needs: provisioning
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
