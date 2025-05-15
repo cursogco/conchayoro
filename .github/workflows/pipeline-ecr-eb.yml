@@ -36,7 +36,7 @@ jobs:
         path: $TF_VAR_WORKING_DIR/terraform.tfstate
       continue-on-error: true
     - run: ls -la
-    - run: ls -la .envi
+    - run: ls -la $TF_VAR_WORKING_DIR
     - run: terraform -chdir=$TF_VAR_WORKING_DIR init
     - run: terraform -chdir=$TF_VAR_WORKING_DIR plan -input=false -out=plan
     - run: terraform -chdir=$TF_VAR_WORKING_DIR apply -auto-approve
