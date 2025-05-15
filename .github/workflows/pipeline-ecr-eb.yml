@@ -22,10 +22,10 @@ jobs:
   provisioning:
     runs-on: ubuntu-latest
     env:
-      TF_VAR_PROJECT_NAME: ${{ PROJECT_NAME }}
-      TF_VAR_MODULE_NAME: ${{ MODULE_NAME }}
-      TF_VAR_AWS_REGION: ${{ AWS_REGION }}
-      TF_VAR_SOLUTION_STACK_NAME: ${{ STACK_NAME }}
+      TF_VAR_PROJECT_NAME: $PROJECT_NAME
+      TF_VAR_MODULE_NAME: $MODULE_NAME
+      TF_VAR_AWS_REGION: $AWS_REGION
+      TF_VAR_SOLUTION_STACK_NAME: $STACK_NAME
     steps:
     - uses: actions/checkout@v4
     - uses: hashicorp/setup-terraform@v3
