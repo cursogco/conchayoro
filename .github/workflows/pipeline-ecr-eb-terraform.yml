@@ -33,7 +33,7 @@ jobs:
      - uses: actions/download-artifact@v4
        with:
          name: tfstate
-         path: .environment/terraform.tfstate
+         path: .
        continue-on-error: true
      - run: ls -la
      - run: ls -la $TF_VAR_WORKING_DIR
