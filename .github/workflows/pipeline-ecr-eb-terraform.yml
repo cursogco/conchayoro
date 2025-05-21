@@ -32,7 +32,7 @@ jobs:
      steps:    
      - uses: actions/checkout@v4
      - uses: hashicorp/setup-terraform@v3
-     - run: aws s3 cp s3://$BUCKET_S3/$TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE --no-sign-request
+     - run: aws s3 cp s3://$S3_BUCKET/$TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE $TF_VAR_WORKING_DIR --no-sign-request
        continue-on-error: true
      - run: ls -la $TF_VAR_WORKING_DIR
      - run: terraform -chdir=$TF_VAR_WORKING_DIR init
@@ -40,7 +40,7 @@ jobs:
      - run: ls -la $TF_VAR_WORKING_DIR
      - run: terraform -chdir=$TF_VAR_WORKING_DIR apply -auto-approve $TF_VAR_PLAN_FILE
      - run: ls -la $TF_VAR_WORKING_DIR
-     - run: aws s3 cp $TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE s3://$BUCKET_S3/ --acl=bucket-owner-full-control --no-sign-request
+     - run: aws s3 cp $TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE s3://$S3_BUCKET/$TF_VAR_WORKING_DIR/ --acl=bucket-owner-full-control --no-sign-request
                 
   build:
     runs-on: ubuntu-latest    
