@@ -12,6 +12,7 @@ env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   PROJECT_NAME: ${{ vars.PROJECT_NAME }}
   MODULE_NAME: ${{ vars.MODULE_NAME }}
+  S3_BUCKET: ${{ vars.S3_BUCKET }}
   TAG: ${{ vars.TAG }}
   STACK_NAME: ${{ vars.STACK_NAME }}
   MODULE_FULLNAME: ${{ vars.PROJECT_NAME }}/${{ vars.MODULE_NAME }}
@@ -27,27 +28,19 @@ jobs:
        TF_VAR_SOLUTION_STACK_NAME: ${{ vars.STACK_NAME }}
        TF_VAR_WORKING_DIR: ".environment"      
        TF_VAR_PLAN_FILE: "planfile"
+       TF_VAR_STATE_FILE: "terraform.tfstate"
      steps:    
      - uses: actions/checkout@v4
      - uses: hashicorp/setup-terraform@v3
-     - uses: actions/download-artifact@v4
-       with:
-         name: tfstate
-         path: .
+     - run: aws s3 cp s3://$BUCKET_S3/$TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE --no-sign-request
        continue-on-error: true
-     - run: ls -la
      - run: ls -la $TF_VAR_WORKING_DIR
      - run: terraform -chdir=$TF_VAR_WORKING_DIR init
      - run: terraform -chdir=$TF_VAR_WORKING_DIR plan -input=false -out=$TF_VAR_PLAN_FILE
-     - run: ls -la
      - run: ls -la $TF_VAR_WORKING_DIR
      - run: terraform -chdir=$TF_VAR_WORKING_DIR apply -auto-approve $TF_VAR_PLAN_FILE
-     - run: ls -la
      - run: ls -la $TF_VAR_WORKING_DIR
-     - uses: actions/upload-artifact@v4
-       with:
-         name: tfstate
-         path: .environment/terraform.tfstate
+     - run: aws s3 cp $TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE s3://$BUCKET_S3/ --acl=bucket-owner-full-control --no-sign-request
                 
   build:
     runs-on: ubuntu-latest    
