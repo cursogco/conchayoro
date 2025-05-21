@@ -7,8 +7,8 @@ terraform {
   }
 
  backend "s3" {
-    bucket         	   = "conchayoro_cyo"
-    key              	 = "state/terraform.tfstate"
+    bucket         	   = "conchayoro-cyo"
+    key                = "state/terraform.tfstate"
     region         	   = "us-east-1"
     encrypt        	   = true
   }
