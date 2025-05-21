@@ -6,6 +6,13 @@ terraform {
     }
   }
 
+ backend "s3" {
+    bucket         	   = "${var.S3_BUCKET}"
+    key              	 = "${var.STATE_FILE}"
+    region         	   = "${var.AWS_REGION}"
+    encrypt        	   = true
+  }
+
   required_version = ">= 1.2.0"
 }
 
