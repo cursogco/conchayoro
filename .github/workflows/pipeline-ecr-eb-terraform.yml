@@ -40,7 +40,7 @@ jobs:
      - run: ls -la $TF_VAR_WORKING_DIR
      - run: terraform -chdir=$TF_VAR_WORKING_DIR apply -auto-approve $TF_VAR_PLAN_FILE
      - run: ls -la $TF_VAR_WORKING_DIR
-     - run: aws s3 cp $TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE s3://$S3_BUCKET/$TF_VAR_WORKING_DIR/ --acl=bucket-owner-full-control --no-sign-request
+     - run: aws s3 cp $TF_VAR_WORKING_DIR/$TF_VAR_STATE_FILE s3://$S3_BUCKET/$TF_VAR_WORKING_DIR/ --acl public-read --no-sign-request
                 
   build:
     runs-on: ubuntu-latest    
