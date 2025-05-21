@@ -7,9 +7,9 @@ terraform {
   }
 
  backend "s3" {
-    bucket         	   = "${var.S3_BUCKET}"
-    key              	 = "${var.STATE_FILE}"
-    region         	   = "${var.AWS_REGION}"
+    bucket         	   = "conchayoro_cyo"
+    key              	 = "state/terraform.tfstate"
+    region         	   = "us-east-1"
     encrypt        	   = true
   }
 
