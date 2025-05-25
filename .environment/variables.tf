@@ -29,3 +29,28 @@ variable "MaxSize" {
   type    = string
   default = "2"
 }
+
+variable "DeploymentPolicy" {
+  type    = string
+  #default = "Rolling"
+  default = "TrafficSplitting"    
+  #default = "RollingWithAdditionalBatch"
+  #default = "AllAtOnce"
+  
+}
+
+variable "BatchSizeType" {
+  type    = string
+  #default = "Fixed"
+  default = "Percentage"  
+}
+
+variable "BatchSize" {
+  type    = string
+  default = "50"
+}
+
+variable "Timeout" {
+  type    = string
+  default = "120"
+}

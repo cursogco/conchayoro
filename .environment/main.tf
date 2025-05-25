@@ -57,6 +57,29 @@ resource "aws_elastic_beanstalk_environment" "cyo_ebef" {
     name      = "MaxSize"
     value     = "${var.MaxSize}"
   }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "DeploymentPolicy"
+    value     = "${var.DeploymentPolicy}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "BatchSizeType"
+    value     = "${var.BatchSizeType}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "BatchSize"
+    value     = "${var.BatchSize}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "Timeout"
+    value     = "${var.Timeout}"
+  }
   
 }
-
