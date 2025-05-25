@@ -25,7 +25,7 @@ resource "aws_elastic_beanstalk_environment" "cyo_ebef" {
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "EnvironmentType"
-    value     = "SingleInstance"
+    value     = "${var.EnvironmentType}"
   }
 
   setting {
@@ -44,6 +44,18 @@ resource "aws_elastic_beanstalk_environment" "cyo_ebef" {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
     value     = "vockey"
+  }
+
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "MinSize"
+    value     = "${var.MinSize}"
+  }
+
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "MaxSize"
+    value     = "${var.MaxSize}"
   }
   
 }
