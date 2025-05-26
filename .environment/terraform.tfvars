@@ -7,7 +7,7 @@ MaxSize = 1
 DeploymentPolicy = "AllAtOnce"
 BatchSizeType = "Fixed"
 BatchSize = 50
-Timeout = 6000
+Timeout = 3600
 
 ## LoadedBalanced service settings
 ##---------------------------
@@ -18,4 +18,4 @@ Timeout = 6000
 #DeploymentPolicy = "TrafficSplitting"
 #BatchSizeType = "Percentage"
 #BatchSize = 50
-#Timeout = 6000
+#Timeout = 3600
