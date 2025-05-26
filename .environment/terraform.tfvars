@@ -15,4 +15,4 @@ MaxSize = 2
 DeploymentPolicy = "TrafficSplitting"
 BatchSizeType = "Percentage"
 BatchSize = 50
-Timeout = 15
+Timeout = 500
