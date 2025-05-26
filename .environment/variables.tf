@@ -32,16 +32,14 @@ variable "MinSize" {
 
 variable "MaxSize" {
   type    = string
-  default = "2"
+  default = "1"
 }
 
 variable "DeploymentPolicy" {
   type    = string
-  #default = "Rolling"
-  default = "TrafficSplitting"
-  #default = "RollingWithAdditionalBatch"
-  #default = "AllAtOnce"
-  
+  default = "AllAtOnce"
+  #default = "TrafficSplitting"
+  #default = "RollingWithAdditionalBatch"    
 }
 
 variable "BatchSizeType" {
