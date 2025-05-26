@@ -43,5 +43,5 @@ variable "BatchSize" {
 }
 
 variable "Timeout" {
-  type    = number
+  type    = string
 }

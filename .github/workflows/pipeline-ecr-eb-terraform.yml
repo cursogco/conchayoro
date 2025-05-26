@@ -83,5 +83,5 @@ jobs:
           sed -i='' "s/<TAG>/$TAG/" Dockerrun.aws.json
       - run: pip install awsebcli --upgrade --user
       - run: |           
-           eb deploy --verbose
+           eb deploy --verbose --timeout 20
         
