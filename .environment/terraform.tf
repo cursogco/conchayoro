@@ -7,10 +7,10 @@ terraform {
   }
 
  backend "s3" {
-    bucket         	   = ""
-    key                = ""
-    region         	   = ""
-    encrypt        	   = true
+    bucket  = ""
+    key     = ""
+    region  = ""
+    encrypt = true
   }
 
   required_version = ">= 1.12.1"
