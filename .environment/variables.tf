@@ -22,7 +22,7 @@ variable "EnvironmentType" {
 
 variable "LoadBalancerType" {
   type    = string
-  default = "Application"
+  default = "application"
 }
 
 variable "MinSize" {
