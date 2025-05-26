@@ -1,11 +1,11 @@
 EnvironmentType = "LoadBalanced"
 LoadBalancerType = "application"
-MinSize = "1"
-MaxSize = "1"
+MinSize = 1
+MaxSize = 1
 DeploymentPolicy = "AllAtOnce"
 #DeploymentPolicy = "TrafficSplitting"
 #DeploymentPolicy = "RollingWithAdditionalBatch"
 BatchSizeType = "Fixed"
 #BatchSizeType = "Percentage"
-BatchSize = "50"
-Timeout = "120"
+BatchSize = 50
+Timeout = 120
