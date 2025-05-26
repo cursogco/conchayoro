@@ -31,6 +31,12 @@ resource "aws_elastic_beanstalk_environment" "cyo_ebef" {
 
   setting {
     namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "${var.LoadBalancerType}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = "LabRole"
   }
