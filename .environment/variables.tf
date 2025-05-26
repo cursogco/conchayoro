@@ -32,8 +32,8 @@ variable "MaxSize" {
 
 variable "DeploymentPolicy" {
   type    = string
-  default = "Rolling"
-  #default = "TrafficSplitting"
+  #default = "Rolling"
+  default = "TrafficSplitting"
   #default = "RollingWithAdditionalBatch"
   #default = "AllAtOnce"
   
